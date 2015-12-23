@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/utils/Draggable.min.js"></script>
+<script src="js/ThrowPropsPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
+
+<style>
+body { padding:50px; background:#ccc;}
+#knob { width:350px; height:350px; background:orange; padding:10px; border-radius:50%; position:relative;}
+#knob .circle { width:20px; height:20px; background:lightblue; left:50%; position:relative; margin-left:-10px;border-radius:50%;}
+</style>
+</head>
+
+<body>
+<div id="knob">
+<div class="circle"></div>
+</div>
+<script type="text/javascript">
+//Draggable.create("#knob", {type: "rotation", edgeResistance:0.1, throwProps: true});
+var rotationSnap = 45;
+Draggable.create("#knob", {
+    type:"rotation", //instead of "x,y" or "top,left", we can simply do "rotation" to make the object spinnable! 
+    throwProps:true, //enables kinetic-based flicking (continuation of movement, decelerating after releasing the mouse/finger)
+	edgeResistance:0.1,
+    snap:function(endValue) { 
+       var snapRotation =  Math.round(endValue / rotationSnap) * rotationSnap;
+	   console.log(snapRotation%360);
+		 return snapRotation;
+    }
+});
+</script>
+</body>
+</html>
